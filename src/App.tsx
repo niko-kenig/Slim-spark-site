@@ -89,6 +89,7 @@ const steps: StepCard[] = [
 
 const appLink = 'https://app.slim-spark.ru'
 const telegramLink = 'https://t.me/slimspark'
+const imageBasePath = `${import.meta.env.BASE_URL}image/`
 
 const ctaClassName =
   'inline-flex items-center justify-center rounded-xl bg-[#F97316] px-6 py-3 text-base font-semibold text-white transition hover:bg-[#EA580C]'
@@ -101,29 +102,17 @@ export const App = (): ReactElement => {
   return (
     <div className="bg-[#FFF8F0] text-[#08060D]">
       <header className="fixed inset-x-0 top-0 z-50 border-b border-[#E8DCCB] bg-gradient-to-r from-[#FFF6EC]/95 via-[#FFF1E2]/95 to-[#ECFBF7]/95 backdrop-blur">
-        <div className="mx-auto flex w-full max-w-[1380px] flex-wrap items-center justify-between gap-3 px-4 py-1 md:flex-nowrap md:px-8">
-          <a
-            className="flex items-center py-1 text-base font-semibold tracking-tight text-[#08060D]"
-            href="#top"
-          >
-            <img
-              src="/image/logo_%20.png"
-              alt="Slim-Spark"
-              className="h-16 w-auto object-contain"
-            />
-          </a>
-          <nav className="flex w-full items-center justify-between gap-3 sm:w-auto sm:justify-end md:gap-6">
+        <div className="mx-auto w-full max-w-[1380px] px-4 py-2 md:px-8">
+          <div className="flex items-center justify-between gap-3 md:hidden">
             <a
-              className="text-sm font-medium text-[#6B6375] transition hover:text-[#F97316] md:text-base"
-              href="#about"
+              className="flex items-center py-1 text-base font-semibold tracking-tight text-[#08060D]"
+              href="#top"
             >
-              О программе
-            </a>
-            <a
-              className="text-sm font-medium text-[#6B6375] transition hover:text-[#F97316] md:text-base"
-              href="#how-it-works"
-            >
-              Как это работает
+              <img
+                src={`${imageBasePath}logo_%20.png`}
+                alt="Slim-Spark"
+                className="h-14 w-auto object-contain md:h-16"
+              />
             </a>
             <a
               className={headerCtaClassName}
@@ -133,19 +122,62 @@ export const App = (): ReactElement => {
             >
               Войти в приложение
             </a>
-          </nav>
+          </div>
+
+          <div className="hidden items-center justify-between gap-3 md:flex md:flex-nowrap">
+            <a
+              className="flex items-center py-1 text-base font-semibold tracking-tight text-[#08060D]"
+              href="#top"
+            >
+              <img
+                src={`${imageBasePath}logo_%20.png`}
+                alt="Slim-Spark"
+                className="h-16 w-auto object-contain"
+              />
+            </a>
+            <nav className="flex items-center justify-between gap-6">
+              <a
+                className="text-sm font-medium text-[#6B6375] transition hover:text-[#F97316] md:text-base"
+                href="#about"
+              >
+                О программе
+              </a>
+              <a
+                className="text-sm font-medium text-[#6B6375] transition hover:text-[#F97316] md:text-base"
+                href="#how-it-works"
+              >
+                Как это работает
+              </a>
+              <a
+                className={headerCtaClassName}
+                href={appLink}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Войти в приложение
+              </a>
+            </nav>
+          </div>
         </div>
       </header>
 
       <main
         id="top"
-        className="mx-auto flex w-full max-w-[1380px] scroll-mt-24 flex-col gap-6 px-4 pb-8 pt-28 md:gap-8 md:px-8 md:pb-12 md:pt-28"
+        className="mx-auto flex w-full max-w-[1380px] scroll-mt-24 flex-col gap-6 px-4 pb-8 pt-36 md:gap-8 md:px-8 md:pb-12 md:pt-40 lg:pt-28"
       >
         <section className="animate-fade-up rounded-3xl border border-[#E5E4E7] bg-[#FFFFF0] px-6 py-20 shadow-sm md:px-10">
           <div className="grid items-stretch gap-8 lg:grid-cols-2">
-            <div className="flex h-full flex-col">
+            <div className="animate-fade-up animate-delay-2 order-1 mx-auto w-full max-w-[520px] rounded-[2rem] bg-gradient-to-br from-[#FFF3E0] via-[#FFE7D1] to-[#FBEBDD] p-3 shadow-[0_28px_56px_rgba(40,24,10,0.18)] lg:order-2">
+              <img
+                src={`${imageBasePath}main.png`}
+                alt="Иллюстрация программы Slim-Spark"
+                className="h-auto w-full rounded-[1.35rem] border border-white/80 shadow-[0_24px_52px_rgba(8,6,13,0.24)] transition duration-500 ease-out hover:-translate-y-1 hover:scale-[1.01]"
+              />
+            </div>
+
+            <div className="order-2 flex h-full flex-col lg:order-1">
               <div>
-                <span className="animate-fade-up inline-block rounded-full border border-[#FDBA74] bg-[#FFF7ED] px-5 py-2 text-[1.3125rem] font-medium leading-tight text-[#C2410C]">
+                <span className="animate-fade-up inline-block whitespace-nowrap rounded-full border border-[#FDBA74] bg-[#FFF7ED] px-4 py-2 text-sm font-medium leading-tight text-[#C2410C] md:px-5 md:text-[1.3125rem]">
                   ✦ Ем всё что хочу — и худею
                 </span>
                 <h1
@@ -180,14 +212,6 @@ export const App = (): ReactElement => {
                   — Альберт Эйнштейн
                 </footer>
               </blockquote>
-            </div>
-
-            <div className="animate-fade-up animate-delay-2 mx-auto w-full max-w-[520px] rounded-[2rem] bg-gradient-to-br from-[#FFF3E0] via-[#FFE7D1] to-[#FBEBDD] p-3 shadow-[0_28px_56px_rgba(40,24,10,0.18)]">
-              <img
-                src="/image/main.png"
-                alt="Иллюстрация программы Slim-Spark"
-                className="h-auto w-full rounded-[1.35rem] border border-white/80 shadow-[0_24px_52px_rgba(8,6,13,0.24)] transition duration-500 ease-out hover:-translate-y-1 hover:scale-[1.01]"
-              />
             </div>
           </div>
         </section>
@@ -231,14 +255,14 @@ export const App = (): ReactElement => {
           <div className="grid gap-5 md:grid-cols-2">
             <div className="overflow-hidden rounded-3xl shadow-[0_18px_34px_rgba(15,23,42,0.16)]">
               <img
-                src="/image/img1.jpg"
+                src={`${imageBasePath}img1.jpg`}
                 alt="Полезные продукты"
                 className="h-[250px] w-full object-cover transition duration-500 ease-out hover:scale-[1.03] md:h-[280px]"
               />
             </div>
             <div className="overflow-hidden rounded-3xl shadow-[0_18px_34px_rgba(15,23,42,0.16)]">
               <img
-                src="/image/img2.jpg"
+                src={`${imageBasePath}img2.jpg`}
                 alt="Поддержка в процессе программы"
                 className="h-[250px] w-full object-cover transition duration-500 ease-out hover:scale-[1.03] md:h-[280px]"
               />
@@ -347,7 +371,7 @@ export const App = (): ReactElement => {
         <div className="mx-auto flex w-full max-w-[1380px] flex-col gap-4 px-4 py-8 text-sm text-[#6B6375] md:flex-row md:items-center md:justify-between md:px-8">
           <div>
             <img
-              src="/image/logo_%20.png"
+              src={`${imageBasePath}logo_%20.png`}
               alt="Slim-Spark"
               className="h-12 w-auto object-contain"
             />
