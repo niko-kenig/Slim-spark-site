@@ -1,12 +1,91 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>slim-spark-site</title>
+    <meta
+      name="description"
+      content="Slim-Spark — онлайн программа похудения без жестких диет и изнуряющих тренировок. Помогаем снизить вес через осознанное питание, работу с привычками и поддержку."
+    />
+    <meta
+      name="keywords"
+      content="похудение, программа похудения, программа похудания, худеть без диет, снижение веса, осознанное питание, Slim-Spark"
+    />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://slim-spark.ru/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="Slim-Spark" />
+    <meta property="og:title" content="Slim-Spark — программа похудения" />
+    <meta
+      property="og:description"
+      content="Онлайн программа похудения без жестких диет: работа с причинами переедания, питание и поддержка."
+    />
+    <meta property="og:url" content="https://slim-spark.ru/" />
+    <meta property="og:image" content="https://slim-spark.ru/favicon.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Slim-Spark — программа похудения" />
+    <meta
+      name="twitter:description"
+      content="Снижение веса без жестких ограничений: привычки, поддержка и устойчивый результат."
+    />
+    <meta name="twitter:image" content="https://slim-spark.ru/favicon.png" />
+    <title>Slim-Spark</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Slim-Spark",
+        "url": "https://slim-spark.ru/",
+        "logo": "https://slim-spark.ru/favicon.png",
+        "description": "Онлайн программа похудения без жестких диет и изнуряющих тренировок."
+      }
+    </script>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+      (function (m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function () {
+            (m[i].a = m[i].a || []).push(arguments);
+          };
+        m[i].l = 1 * new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) {
+            return;
+          }
+        }
+        k = e.createElement(t);
+        a = e.getElementsByTagName(t)[0];
+        k.async = 1;
+        k.src = r;
+        a.parentNode.insertBefore(k, a);
+      })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=108719881", "ym");
+
+      ym(108719881, "init", {
+        ssr: true,
+        webvisor: true,
+        clickmap: true,
+        ecommerce: "dataLayer",
+        referrer: document.referrer,
+        url: location.href,
+        accurateTrackBounce: true,
+        trackLinks: true,
+      });
+    </script>
+    <!-- /Yandex.Metrika counter -->
   </head>
   <body>
+    <noscript>
+      <div>
+        <img
+          src="https://mc.yandex.ru/watch/108719881"
+          style="position: absolute; left: -9999px"
+          alt=""
+        />
+      </div>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -1,4 +1,5 @@
-import type { ReactElement } from 'react'
+import type { MouseEvent, ReactElement } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import {
   BookOpen,
@@ -9,6 +10,7 @@ import {
   TrendingUp,
   Utensils,
 } from 'lucide-react'
+import buttonIcon from './assets/button_icon copy.png'
 
 type FeatureCard = {
   title: string
@@ -88,7 +90,7 @@ const steps: StepCard[] = [
 ]
 
 const appLink = 'https://app.slim-spark.ru'
-const telegramLink = 'https://t.me/slimspark'
+const telegramLink = 'https://t.me/Slim_Spark'
 const imageBasePath = `${import.meta.env.BASE_URL}image/`
 
 const ctaClassName =
@@ -98,7 +100,68 @@ const headerCtaClassName =
 const headingGradientClassName =
   'bg-gradient-to-r from-[#8A5A3B] via-[#9A6745] to-[#AD7852] bg-clip-text text-transparent'
 
+const TELEGRAM_HINT_DISPLAY_MS = 2600
+
 export const App = (): ReactElement => {
+  const [isTelegramHintOpen, setIsTelegramHintOpen] = useState(false)
+  const telegramHintTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  )
+
+  const openTelegramInNewTab = () => {
+    window.open(telegramLink, '_blank', 'noopener,noreferrer')
+  }
+
+  const finishTelegramHint = () => {
+    if (telegramHintTimerRef.current !== null) {
+      clearTimeout(telegramHintTimerRef.current)
+      telegramHintTimerRef.current = null
+    }
+    setIsTelegramHintOpen(false)
+    openTelegramInNewTab()
+  }
+
+  const startTelegramHint = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+    if (telegramHintTimerRef.current !== null) {
+      clearTimeout(telegramHintTimerRef.current)
+    }
+    setIsTelegramHintOpen(true)
+    telegramHintTimerRef.current = setTimeout(() => {
+      telegramHintTimerRef.current = null
+      setIsTelegramHintOpen(false)
+      openTelegramInNewTab()
+    }, TELEGRAM_HINT_DISPLAY_MS)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (telegramHintTimerRef.current !== null) {
+        clearTimeout(telegramHintTimerRef.current)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isTelegramHintOpen) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [isTelegramHintOpen])
+
+  useEffect(() => {
+    if (!isTelegramHintOpen) return
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        finishTelegramHint()
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [isTelegramHintOpen])
+
   return (
     <div className="bg-[#FFF8F0] text-[#08060D]">
       <header className="fixed inset-x-0 top-0 z-50 border-b border-[#E8DCCB] bg-gradient-to-r from-[#FFF6EC]/95 via-[#FFF1E2]/95 to-[#ECFBF7]/95 backdrop-blur">
@@ -193,17 +256,30 @@ export const App = (): ReactElement => {
                   чувство. Slim-Spark — это не диета. Это первая программа где
                   вам не нужно себя ломать.
                 </p>
-                <div className="animate-fade-up animate-delay-4 mt-7 flex flex-col gap-4 sm:flex-row">
-                  <a className={ctaClassName} href={appLink} target="_blank" rel="noreferrer">
-                    Хочу попробовать бесплатно →
-                  </a>
+                <div className="animate-fade-up animate-delay-3 mt-3 max-w-3xl rounded-2xl border border-[#F6D7B5] bg-[#FFF4E8] px-5 py-4 text-base leading-relaxed text-[#7A4E30] md:text-lg">
+                  <p>
+                    Напиши нам - мы живые люди и будем рады познакомиться.
+                  </p>
+                  <div className="mt-4 flex flex-col gap-4 sm:flex-row">
+                    <a
+                      className={ctaClassName}
+                      href={telegramLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={startTelegramHint}
+                    >
+                      <img
+                        src={buttonIcon}
+                        alt=""
+                        aria-hidden="true"
+                        className="mr-2 h-5 w-5 object-contain"
+                      />
+                      Хочу попробовать
+                    </a>
+                  </div>
                 </div>
               </div>
-              <p className="animate-fade-up animate-delay-5 mt-6 max-w-2xl text-sm text-[#6B6375] md:text-base">
-                Откройте приложение прямо сейчас — работает на любом телефоне,
-                ничего скачивать не нужно
-              </p>
-              <blockquote className="animate-fade-up animate-delay-5 mt-5 max-w-2xl rounded-2xl border border-[#F6D7B5] bg-[#FFF4E8] px-5 py-4 text-[#7A4E30] shadow-sm">
+              <blockquote className="animate-fade-up animate-delay-5 mt-5 max-w-3xl rounded-2xl border border-[#EEDCC7] bg-[#FFF9F2] px-5 py-4 text-[#7A5A3B] shadow-sm">
                 <p className="text-sm leading-relaxed md:text-base">
                   "Безумие — делать одно и то же снова и снова, ожидая другого
                   результата."
@@ -359,8 +435,15 @@ export const App = (): ReactElement => {
                 href={telegramLink}
                 target="_blank"
                 rel="noreferrer"
+                onClick={startTelegramHint}
               >
-                Написать в Telegram →
+                <img
+                  src={buttonIcon}
+                  alt=""
+                  aria-hidden="true"
+                  className="mr-2 h-5 w-5 object-contain"
+                />
+                Написать нам
               </a>
             </aside>
           </div>
@@ -410,6 +493,41 @@ export const App = (): ReactElement => {
           </div>
         </div>
       </footer>
+
+      {isTelegramHintOpen ? (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          role="presentation"
+        >
+          <button
+            type="button"
+            className="absolute inset-0 bg-[#08060D]/45 backdrop-blur-[2px] transition-opacity"
+            aria-label="Открыть Telegram сейчас"
+            onClick={finishTelegramHint}
+          />
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="telegram-hint-title"
+            aria-describedby="telegram-hint-desc"
+            className="relative z-10 w-full max-w-md rounded-3xl border border-[#E8DCCB] bg-gradient-to-br from-[#FFFFF0] via-[#FFF8F0] to-[#FFF4E8] px-6 py-8 text-left shadow-[0_28px_56px_rgba(40,24,10,0.22)]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <p
+              id="telegram-hint-title"
+              className="text-xl font-semibold leading-snug text-[#08060D] md:text-2xl"
+            >
+              Напиши нам «Привет» 👋
+            </p>
+            <p
+              id="telegram-hint-desc"
+              className="mt-4 text-base leading-relaxed text-[#6B6375] md:text-lg"
+            >
+              Мы живые люди — ответим быстро и без скриптов
+            </p>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }
